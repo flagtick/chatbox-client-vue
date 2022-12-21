@@ -12,10 +12,13 @@ class SocketioService {
       this.socket.emit(channel, message);
     }
 
-    setupChannelClient(channel) {
-      this.socket.on(channel, (data) => {
-        console.log(data);
+    async setupChannelClient(channel) {
+      let res = await new Promise((resolve) => {
+        this.socket.on(channel, (data) => {
+          resolve(data);
+        });
       });
+      console.log(res);
     }
 }
 
